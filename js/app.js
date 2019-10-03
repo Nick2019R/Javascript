@@ -3,6 +3,7 @@
   var numero1;
   var numero2;
   var operacion;
+  var clicks = 0;
 
    for (let i = 0; i < botones.length; i++) {
    botones[i].addEventListener("mousedown", function() {
@@ -90,6 +91,7 @@
      numero1=0;
      numero2=0;
      operacion="";
+
    }
    function resolver(){
      var res = 0;
@@ -107,8 +109,6 @@
                  res = parseFloat(numero1) / parseFloat(numero2);
                  break;
      }
-
-             resetear();
              display.innerHTML = res;
    }
 
@@ -121,6 +121,7 @@
    signos[0].addEventListener("mousedown",function(){
    display.innerHTML="0";
    condicional = 0;
+   clicks=0;
    resetear();
    })
    signos[2].addEventListener("click",function(){
@@ -144,9 +145,28 @@
      }
    })
    signos[3].addEventListener("click",function(){
-     numero2= display.innerHTML;
-     resolver();
-
+     clicks++;
+     if (clicks > 1) {
+       numero1 = display.innerHTML;
+       switch (operacion) {
+                 case "+":
+                   res = parseFloat(numero1) + parseFloat(numero2);
+                   break;
+                 case "-":
+                   res = parseFloat(numero1) - parseFloat(numero2);
+                   break;
+                 case "*":
+                   res = parseFloat(numero1) * parseFloat(numero2);
+                   break;
+                 case "/":
+                   res = parseFloat(numero1) / parseFloat(numero2);
+                   break;
+       }
+               display.innerHTML = res;
+     }else {
+       numero2= display.innerHTML;
+       resolver();
+     }
    })
    var operaciones = [
      document.getElementById('dividido'),
